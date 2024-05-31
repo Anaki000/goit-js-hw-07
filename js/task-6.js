@@ -23,15 +23,13 @@ function createMarkup() {
 }
 
 
+
 function createBox(amount) {
   boxDestroy();
   for (let i = 0; i < amount; i++) {
     const size = 30 + step * i;
-    let box = document.createElement("div");
-    box.style.height = `${size}px`;
-    box.style.maxWidth = `${size}px`;
-    box.style.backgroundColor = `${getRandomHexColor()}`
-    boxes.append(box)
+    const box = `<div style="width:${size}px; height:${size}px; margin-top:3px; background-color:${getRandomHexColor()};"></div>`;
+    boxes.insertAdjacentHTML('beforeend', box);
   }
   amountInput.value = "";
 }
