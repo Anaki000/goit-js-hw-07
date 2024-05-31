@@ -13,10 +13,12 @@ const boxesDiv = document.getElementById('boxes');
 createBtn.addEventListener('click', createBoxes);
 destroyBtn.addEventListener('click', destroyBoxes);
 
+
+
 function createBoxes() {
   const amount = input.value;
   if (amount >= 1 && amount <= 100) {
-    boxesDiv.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < amount; i++) {
       const box = document.createElement('div');
@@ -25,13 +27,18 @@ function createBoxes() {
       box.style.width = `${size}px`;
       box.style.height = `${size}px`;
       box.style.backgroundColor = color;
-      boxesDiv.appendChild(box);
+      fragment.appendChild(box); 
     }
+
+    boxesDiv.innerHTML = ''; 
+    boxesDiv.appendChild(fragment); 
+
     input.value = '';
-  } else { 
+  } else {
     alert('Будь ласка, введіть число від 1 до 100.');
   }
 }
+
 
 function destroyBoxes() {
   boxesDiv.innerHTML = '';
