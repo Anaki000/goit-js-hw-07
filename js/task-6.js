@@ -4,38 +4,36 @@ function getRandomHexColor() {
     .padStart(6, 0)}`;
 }
 
-const amountInput  = document.querySelector('input');
-const btnCreate = document.querySelector('button[data-create]');
-const btnDestroy = document.querySelector('button[data-destroy]');
-const boxes = document.querySelector("#boxes");
+const controls = document.getElementById('controls');
+const input = controls.querySelector('input');
+const createBtn = controls.querySelector('[data-create]');
+const destroyBtn = controls.querySelector('[data-destroy]');
+const boxesDiv = document.getElementById('boxes');
 
-btnCreate.addEventListener("click", createMarkup)
-btnDestroy.addEventListener("click", boxDestroy)
+createBtn.addEventListener('click', createBoxes);
+destroyBtn.addEventListener('click', destroyBoxes);
 
-const step = 10;
+function createBoxes() {
+  const amount = input.value;
+  if (amount >= 1 && amount <= 100) {
+    boxesDiv.innerHTML = '';
 
-function createMarkup() {
-  if (amountInput.value < 1 || amountInput.value > 100) {
-    alert('Будь ласка, введіть число від 1 до 100.')
-    return
+    for (let i = 0; i < amount; i++) {
+      const box = document.createElement('div');
+      const size = 30 + i * 10;
+      const color = getRandomHexColor();
+      box.style.width = `${size}px`;
+      box.style.height = `${size}px`;
+      box.style.backgroundColor = color;
+      boxesDiv.appendChild(box);
+    }
+    input.value = '';
+  } else { 
+    alert('Будь ласка, введіть число від 1 до 100.');
   }
-  createBox(amountInput.value)
 }
 
-
-
-function createBox(amount) {
-  boxDestroy();
-  for (let i = 0; i < amount; i++) {
-    const size = 30 + step * i;
-    const box = `<div style="width:${size}px; height:${size}px; margin-top:3px; background-color:${getRandomHexColor()};"></div>`;
-    boxes.insertAdjacentHTML('beforeend', box);
-  }
-  amountInput.value = "";
+function destroyBoxes() {
+  boxesDiv.innerHTML = '';
 }
-
-function boxDestroy() {
-  boxes.innerHTML = "";
-}
-
 
